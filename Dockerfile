@@ -1,9 +1,8 @@
 # Docker container running ArchLinux accessible through novnc in a browser
-FROM ubuntu:22.10
+FROM jonathonf/manjaro:latest
 
 # Install packages
-RUN apt update -y && \
-  apt install \
+RUN pacman -S --noconfirm \
 	facter \
 	git \
 	enlightenment \
@@ -17,7 +16,10 @@ RUN apt update -y && \
 	x11vnc \
 	xorg-server \
 	xorg-server-utils \
-	xorg-server-xvfb -y
+	xorg-server-xvfb
+
+# Update all packages
+RUN pacman -Syu
 
 # noVNC cooking
 WORKDIR /opt/
