@@ -1,6 +1,5 @@
 # Docker container running ArchLinux accessible through novnc in a browser
 FROM archlinux:latest
-MAINTAINER ponsfrilus <ponsfrilus@gmail.com>
 
 # Install packages
 RUN pacman -S --noconfirm \
@@ -24,10 +23,10 @@ RUN pacman -Syu
 
 # noVNC cooking
 WORKDIR /opt/
-RUN git clone https://github.com/kanaka/noVNC.git
+RUN git clone https://github.com/novnc/noVNC.git
 # Avoid another checkout when launching noVnc
 WORKDIR /opt/noVNC/utils/
-RUN git clone https://github.com/kanaka/websockify
+RUN git clone https://github.com/novnc/websockify
 
 # Comfort
 WORKDIR /var/log/supervisor/
