@@ -1,21 +1,23 @@
 # Docker container running ArchLinux accessible through novnc in a browser
-FROM jonathonf/manjaro:latest
+FROM archlinux:latest
 
 # Install packages
+RUN pacman-key --init
+RUN pacman-key --populate
 RUN pacman -S --noconfirm \
 	facter \
 	git \
 	enlightenment \
-	mate-gtk3 \
+	mate-desktop \
 	net-tools \
 	python \
-	python3-numpy \
+	python-numpy \
 	supervisor \
 	terminator \
 	vim \
 	x11vnc \
 	xorg-server \
-	xorg-server-utils \
+	xorg-apps \
 	xorg-server-xvfb
 
 # Update all packages
