@@ -13,6 +13,9 @@ on:
   # Run tests for any PRs.
   pull_request:
 
+  # Run build manually
+  workflow_dispatch:
+
 jobs:
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
