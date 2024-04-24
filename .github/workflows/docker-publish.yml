@@ -6,13 +6,6 @@ on:
     branches:
       - master
 
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
-
-  # Run tests for any PRs.
-  pull_request:
-
   # Run build manually
   workflow_dispatch:
 
@@ -35,16 +28,12 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ github.repository_owner }}" --password-stdin
       - name: login to ghcr.io
         run: echo "${{ github.token }}" | docker login ghcr.io -u "${{ github.repository_owner }}" --password-stdin
-      - name: build the image
+      - name: build and push the image
         run: |
           IMAGE_ID=${{ github.repository }}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
           echo IMAGE_ID=$IMAGE_ID
           docker buildx build --push --tag "ghcr.io/$IMAGE_ID:latest" --platform linux/amd64 .
-      - name: publish to ghcr.io
-        run: |
-          IMAGE_ID=${{ github.repository }}
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
           docker push "ghcr.io/$IMAGE_ID:latest"
