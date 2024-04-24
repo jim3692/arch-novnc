@@ -10,20 +10,32 @@ RUN pacman -Syu --noconfirm
 
 # Install additional packages
 RUN pacman -S --noconfirm \
+	arc-gtk-theme \
+	caja \
+	enlightenment \
 	facter \
 	git \
-	enlightenment \
+	gnome-keyring \
+	gtk-engine-murrine \
+	gtk-engines \
+	marco \
 	mate-desktop \
+	mate-panel \
+	mate-session-manager \
+	mate-settings-daemon \
 	net-tools \
+	papirus-icon-theme \
 	python \
 	python-numpy \
 	supervisor \
 	terminator \
 	vim \
 	x11vnc \
-	xorg-server \
 	xorg-apps \
+	xorg-server \
 	xorg-server-xvfb
+
+COPY dconf.sh /root/dconf.sh
 
 # noVNC cooking
 WORKDIR /opt/
