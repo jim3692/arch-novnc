@@ -6,7 +6,7 @@ RUN pacman-key --init
 RUN pacman-key --populate
 
 # Update all packages
-RUN pacman -Syu
+RUN pacman -Syu --noconfirm
 
 # Install additional packages
 RUN pacman -S --noconfirm \
