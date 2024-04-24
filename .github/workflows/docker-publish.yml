@@ -32,23 +32,19 @@ jobs:
         with:
           version: latest
       - name: login to docker hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ github.repository_owner }}" --password-stdin
+      - name: login to ghcr.io
+        run: echo "${{ github.token }}" | docker login ghcr.io -u "${{ github.repository_owner }}" --password-stdin
       - name: build the image
         run: |
           IMAGE_ID=${{ github.repository }}
-
-          # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-
           echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker buildx build --push --tag $IMAGE_ID:$VERSION --platform linux/amd64 .
+          docker buildx build --push --tag "ghcr.io/$IMAGE_ID:latest" --platform linux/amd64 .
+      - name: publish to ghcr.io
+        run: |
+          IMAGE_ID=${{ github.repository }}
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
+          docker push "ghcr.io/$IMAGE_ID:latest"
