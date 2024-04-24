@@ -1,4 +1,4 @@
-name: Multi-Arch Docker
+name: Arch Linux Docker
 
 on:
   push:
@@ -51,4 +51,4 @@ jobs:
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker buildx build --push --tag $IMAGE_ID:$VERSION --platform linux/amd64,linux/arm/v7,linux/arm64 .
+          docker buildx build --push --tag $IMAGE_ID:$VERSION --platform linux/amd64 .
