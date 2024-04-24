@@ -20,6 +20,7 @@ RUN pacman -S --noconfirm \
 	gtk-engines \
 	marco \
 	mate-desktop \
+	mate-extra \
 	mate-panel \
 	mate-session-manager \
 	mate-settings-daemon \
