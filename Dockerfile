@@ -1,9 +1,14 @@
 # Docker container running ArchLinux accessible through novnc in a browser
 FROM archlinux:latest
 
-# Install packages
+# Initialize keys
 RUN pacman-key --init
 RUN pacman-key --populate
+
+# Update all packages
+RUN pacman -Syu
+
+# Install additional packages
 RUN pacman -S --noconfirm \
 	facter \
 	git \
@@ -19,9 +24,6 @@ RUN pacman -S --noconfirm \
 	xorg-server \
 	xorg-apps \
 	xorg-server-xvfb
-
-# Update all packages
-RUN pacman -Syu
 
 # noVNC cooking
 WORKDIR /opt/
