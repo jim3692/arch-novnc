@@ -1,6 +1,8 @@
 # arch-novnc
 Docker container running ArchLinux accessible through novnc in a browser
 
+Last rebuild: 14/6/2024
+
 # How To
 
 ## With Docker Hub
